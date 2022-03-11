@@ -1,11 +1,9 @@
 <script>
   import { onDestroy } from "svelte";
-  import Modal from "./Modal.svelte";
-//   import { showMod } from "./Modal-store";
   import { global } from "../stores/global";
 
-//   let showLogin = false;
   let showSignup = false;
+  let showLogin = false;
   let unsubscribe;
 
   unsubscribe = global.subscribe((glob) => {
@@ -17,8 +15,18 @@
       return glob;
     });
   }
+  unsubscribe = global.subscribe((glob) => {
+    showLogin = glob.showLogin;
+  });
+  function showLogInFn() {
+    global.update((glob) => {
+      glob.showLogin = true;
+      return glob;
+    });
+  }
 
   onDestroy(unsubscribe);
+
 </script>
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -49,7 +57,7 @@
           <!-- <Modal /> -->
 
           <!-- If "Sign In" geklickt, wird LoginForm aufgerufen -->
-          <button class="button is-light">Log In</button>
+          <button class="button is-light" on:click={showLogInFn}>Log In</button>
           <!-- <Modal /> -->
         </div>
       </div>

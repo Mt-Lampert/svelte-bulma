@@ -1,17 +1,28 @@
 <script>
-  import SignUpForm from "./UI/SignUpForm.svelte";
-  import Header from "./UI/Header.svelte";
+  import SignUpForm from "./components/SignUpForm.svelte";
+  import LoginForm from "./components/LoginForm.svelte";
+  import Hero from "./components/Hero.svelte";
+
+  import Header from "./components/Header.svelte";
   import { onDestroy } from "svelte";
   import { global } from "./stores/global";
+  
 
   let showSignup;
+  let showLogin;
   let unsubscribe;
 
   unsubscribe = global.subscribe((glob) => {
     showSignup = glob.showSignup;
+    showLogin = glob.showLogin;
   });
 
-  onDestroy(unsubscribe);
+    // onDestroy(unsubscribe);
+    onDestroy(() => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    });
 </script>
 
 <!-- <div class="landingpage__container"> -->
@@ -19,19 +30,12 @@
   {#if showSignup}
     <SignUpForm />
   {/if }
-  <!--
+
   {#if showLogin}
     <LoginForm />
   {/if }
-  -->
  
-  <div class="block">
-    <p class="is-large">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-    </p>
-  </div>
-
-<!-- </div> -->
+  <Hero />
 
 <style global lang="scss">
   @import "main.scss";
