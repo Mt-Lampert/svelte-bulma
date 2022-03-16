@@ -54,16 +54,15 @@
   }
   .modal-container {
     position: absolute;
-    /* top: 25vh; */
-    left: 25vh;
+    top: 50%;
+    left: 50%;
     z-index: 100;
+    transform: translate(-50%, -50%);
     padding: 10px;
     border-radius: 10px;
     width: 500px;
     max-width: 500px;
     min-height: 45vh;
-    /* margin: 0 auto; */
-    margin: 10% auto;
     text-align: center;
     color: white;
     background: #fce6e6;
