@@ -3,7 +3,7 @@
   import { global } from "../stores/global";
 
   function signUpHandler() {
-    console.log("Hi from Log In");
+    // console.log("Hi from Log In");
     const myNewGlob = {
       showSignup: true,
     };

@@ -2,31 +2,47 @@
   import { onDestroy } from "svelte";
   import { global } from "../stores/global";
 
-  let showSignup = false;
-  let showLogin = false;
-  let unsubscribe;
+  // let showSignup = false;
+  // let showLogin = false;
+  // let unsubscribe;
 
-  unsubscribe = global.subscribe((glob) => {
-    showSignup = glob.showSignup;
-  });
-  function showSignupFn() {
-    global.update((glob) => {
-      glob.showSignup = true;
-      return glob;
-    });
+  // unsubscribe = global.subscribe((glob) => {
+  //   showSignup = glob.showSignup;
+  // });
+
+  // function showSignupFn() {
+  //   global.update((glob) => {
+  //     glob.showSignup = true;
+  //     return glob;
+  //   });
+  // }
+
+   function showSignupFn() {
+    const myNewGlob = {
+      showSignup: true,
+    };
+    global.set(myNewGlob);
   }
-  unsubscribe = global.subscribe((glob) => {
-    showLogin = glob.showLogin;
-  });
+
+  
   function showLogInFn() {
-    global.update((glob) => {
-      glob.showLogin = true;
-      return glob;
-    });
+    const myNewGlob = {
+      showLogin: true,
+    };
+    global.set(myNewGlob);
   }
+  // unsubscribe = global.subscribe((glob) => {
+  //   showLogin = glob.showLogin;
+  // });
 
-  onDestroy(unsubscribe);
+  // function showLogInFn() {
+  //   global.update((glob) => {
+  //     glob.showLogin = true;
+  //     return glob;
+  //   });
+  // }
 
+  // onDestroy(unsubscribe);
 </script>
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -39,6 +55,7 @@
       aria-label="menu"
       aria-expanded="false"
       data-target="navbarBasicExample"
+      on:click|preventDefault={showSignupFn}
     >
       <span aria-hidden="true" />
       <span aria-hidden="true" />
