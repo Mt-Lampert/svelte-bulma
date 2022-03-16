@@ -1,13 +1,19 @@
 <script>
   import Modal from "../containers/Modal.svelte";
   import { global } from "../stores/global";
+  import axios from "axios";
 
-  let fullname;
-  let mail;
-  let password;
+  let fullname = "";
+  let mail = "";
+  let password = "";
 
   // let formInput = { fullName: "", mail: "", password: "" };
-  let errors = { fullName: "", mail: "", password: "" };
+  let errors = { fullName: "", mail: "", passWord: "" };
+
+  let nameIsValid = false;
+  let mailIsValid = false;
+  let passwordIsValid = false;
+
   let isValid = false;
 
   function logInHandler() {
@@ -19,51 +25,82 @@
   }
 
   function nameValid(fullname) {
-    var nameRegEx = /^[a-zA-Z_\s]{4,}$/g;
+    var nameRegEx = /[A-Za-zäüö\\s\-]{3,}\s[A-Za-züöä\\-]{3,}/g;
     return nameRegEx.test(fullname);
   }
 
   function emailValid(mail) {
-        //           /^\S+@\S+\.\S+$/g
-    var mailRegEx = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,}$/g;
+    var mailRegEx = /^\w+@[a-zA-Z_]+\.[a-zA-Z]{2,}$/g;
     return mailRegEx.test(mail);
   }
 
-  function passwordValid(password) {
-    var passwordRegEx = /^\S+[0-9]\S+\S+$/g;
-    // var passwordRegEx = /(?=.*[[:alpha:]]+)(?=.[[:alnum:]]?){5,}/g;
-    return passwordRegEx.test(password);
+  function passwordValid(passWord) {
+    let isLongEnough = password.length >= 8;
+    var passwordRegEx = /[A-Za-z-#\?!=@$%^&\*0-9]{8,}/g;
+    return isLongEnough && passwordRegEx.test(passWord);
+    // return isLongEnough;
   }
 
-  function handleSubmit() {
-    isValid = true;
+  function handelValidation() {
+    let nameIsValid = false;
+    let mailIsValid = false;
+    let passwordIsValid = false;
+
     // Validate Fullname
     if (!nameValid(fullname)) {
-      isValid = false;
-      errors.fullName = "Your Full name please! Ex: Max Muster";
+      errors.fullName = "Your full name please! Exp: Max Muster";
     } else {
-      isValid = true;
+      nameIsValid = true;
       errors.fullName = "";
-      // console.log("Right!");
     }
 
     // Validate E-Mail
     if (!emailValid(mail)) {
-      isValid = false;
-      errors.mail = "Your E-Mail! Ex: mu@m.de";
+      errors.mail = "Your E-Mail! Exp: mu@m.de";
     } else {
-      isValid = true;
+      mailIsValid = true;
       errors.mail = "";
     }
 
     // Validate Password
     if (!passwordValid(password)) {
-      isValid = false;
-      errors.password = "A strong Password! Ex: Ma123";
+      errors.passWord = "A strong Password! Exp: Ma&123";
     } else {
-      isValid = true;
-      errors.password = "";
+      passwordIsValid = true;
+      errors.passWord = "";
     }
+
+    if (nameIsValid && mailIsValid && passwordIsValid) {
+      isValid = true;
+    }
+  }
+
+  function handleSubmit() {
+    console.log("Handel Submit!");
+    sendData();
+  }
+
+  function sendData() {
+    // console.log("Data Sent!");
+    let URL =
+      "https://svelte-bulma-default-rtdb.europe-west1.firebasedatabase.app/";
+
+    axios
+      .post(URL)
+      .then((res) => res.data)
+      .then((data) => {
+        console.log(data);
+      });
+
+    // axios({
+    //   method: "POST",
+    //   url: "https://svelte-bulma-default-rtdb.europe-west1.firebasedatabase.app/",
+    //   data: {
+    //     firstName: fullname,
+    //     E_Mail: mail,
+    //     passWord: password,
+    //   },
+    // });
   }
 </script>
 
@@ -101,15 +138,25 @@
         class="input is-rounded"
         placeholder="A Strong Password"
       />
-      <p class="error">{errors.password}</p>
+      <p class="error">{errors.passWord}</p>
     </div>
   </form>
   <div slot="button" class="btn-contianer">
-    <button
-      on:click={handleSubmit}
-      type="submit"
-      class="button is-rounded is-primary">Sign Up</button
-    >
+    {#if !isValid}
+      <button
+        on:click={handelValidation}
+        type="submit"
+        class="button is-rounded is-primary check">Check Entries</button
+      >
+    {:else}
+      <button
+        on:click={handleSubmit}
+        type="submit"
+        class="button is-rounded is-primary sign-up">Sign Up</button
+      >
+    {/if}
+
+    <!-- isTrue ? disabled : enabled  -->
   </div>
   <div slot="title" class="para-contianer">
     <p on:click={logInHandler} class="para__title">Already have an Account?</p>
@@ -117,13 +164,6 @@
 </Modal>
 
 <style>
-  .input-wrapp {
-    background-color: #a1a1a1;
-    flex: 1;
-    text-align: left;
-    /* padding: 15px; */
-  }
-
   .form {
     padding: 2rem 1.5rem;
   }
@@ -168,9 +208,18 @@
   }
   .is-primary {
     font-family: "Sofia";
-    background: #db4e61;
+    /* background: #db4e61; */
     color: rgb(31, 28, 28);
     width: 100%;
+  }
+  .check {
+    border: #db4e61 2px solid;
+    background-color: #f8bbbb;
+    box-shadow: 8px 10px 30px 20px rgba(200, 193, 193, 0.5);
+  }
+  .sign-up {
+    box-shadow: #9c9898;
+    background-color: rgb(116, 195, 116) !important;
   }
   .input {
     border: none !important;
