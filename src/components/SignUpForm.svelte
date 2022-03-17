@@ -3,11 +3,14 @@
   import { global } from "../stores/global";
   import axios from "axios";
 
-  let fullname = "";
-  let mail = "";
-  let password = "";
+  function logInHandler() {
+    const myNewGlob = {
+      showLogin: true,
+    };
+    global.set(myNewGlob);
+  }
 
-  // let formInput = { fullName: "", mail: "", password: "" };
+  let userInput = { fullNameInput: "", emailInput: "", passWordInput: "" };
   let errors = { fullName: "", mail: "", passWord: "" };
 
   let nameIsValid = false;
@@ -16,28 +19,20 @@
 
   let isValid = false;
 
-  function logInHandler() {
-    console.log("Have an Email?");
-    const myNewGlob = {
-      showLogin: true,
-    };
-    global.set(myNewGlob);
-  }
-
-  function nameValid(fullname) {
+  function nameValid(pFullname) {
     var nameRegEx = /[A-Za-zäüö\\s\-]{3,}\s[A-Za-züöä\\-]{3,}/g;
-    return nameRegEx.test(fullname);
+    return nameRegEx.test(pFullname);
   }
 
-  function emailValid(mail) {
+  function emailValid(pMail) {
     var mailRegEx = /^\w+@[a-zA-Z_]+\.[a-zA-Z]{2,}$/g;
-    return mailRegEx.test(mail);
+    return mailRegEx.test(pMail);
   }
 
-  function passwordValid(passWord) {
-    let isLongEnough = password.length >= 8;
+  function passwordValid(pPassWord) {
+    let isLongEnough = pPassWord.length >= 8;
     var passwordRegEx = /[A-Za-z-#\?!=@$%^&\*0-9]{8,}/g;
-    return isLongEnough && passwordRegEx.test(passWord);
+    return isLongEnough && passwordRegEx.test(pPassWord);
     // return isLongEnough;
   }
 
@@ -47,7 +42,7 @@
     let passwordIsValid = false;
 
     // Validate Fullname
-    if (!nameValid(fullname)) {
+    if (!nameValid(userInput.fullNameInput)) {
       errors.fullName = "Your full name please! Exp: Max Muster";
     } else {
       nameIsValid = true;
@@ -55,7 +50,7 @@
     }
 
     // Validate E-Mail
-    if (!emailValid(mail)) {
+    if (!emailValid(userInput.emailInput)) {
       errors.mail = "Your E-Mail! Exp: mu@m.de";
     } else {
       mailIsValid = true;
@@ -63,7 +58,7 @@
     }
 
     // Validate Password
-    if (!passwordValid(password)) {
+    if (!passwordValid(userInput.passWordInput)) {
       errors.passWord = "A strong Password! Exp: Ma&123";
     } else {
       passwordIsValid = true;
@@ -76,36 +71,36 @@
   }
 
   function handleSubmit() {
-    console.log("Handel Submit!");
     sendData();
   }
 
   function sendData() {
-    // console.log("Data Sent!");
     let URL =
-      "https://svelte-bulma-default-rtdb.europe-west1.firebasedatabase.app/";
+      "https://svelte-bulma-default-rtdb.europe-west1.firebasedatabase.app/.json";
 
-    axios
-      .post(URL)
-      .then((res) => res.data)
-      .then((data) => {
-        console.log(data);
+    console.log("Data Sent!");
+
+    fetch(URL, {
+      method: "POST",
+      body: JSON.stringify(userInput),
+      headers: {
+        Content: "application",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Faild");
+        }
+        // ...
+      })
+      .catch((err) => {
+        console.log(err);
       });
-
-    // axios({
-    //   method: "POST",
-    //   url: "https://svelte-bulma-default-rtdb.europe-west1.firebasedatabase.app/",
-    //   data: {
-    //     firstName: fullname,
-    //     E_Mail: mail,
-    //     passWord: password,
-    //   },
-    // });
   }
 </script>
 
 <Modal>
-  <form on:submit|preventDefault={handleSubmit} slot="slot-form" class="form">
+  <form on:submit={handleSubmit} slot="slot-form" class="form">
     <h1 class="title-cont is-medium">BOOM | Sing Up</h1>
     <div class="form-container">
       <!-- <div class="input-wrapp"> </div> -->
@@ -113,7 +108,7 @@
       <input
         required
         type="text"
-        bind:value={fullname}
+        bind:value={userInput.fullNameInput}
         class="input is-rounded"
         placeholder="Your Full Name"
       />
@@ -124,7 +119,7 @@
       <input
         required
         type="email"
-        bind:value={mail}
+        bind:value={userInput.emailInput}
         class="input is-rounded"
         placeholder="Your E-Mail-Adress"
       />
@@ -134,7 +129,7 @@
       <input
         required
         type="password"
-        bind:value={password}
+        bind:value={userInput.passWordInput}
         class="input is-rounded"
         placeholder="A Strong Password"
       />
@@ -196,10 +191,7 @@
     /* margin-top: 15px; */
     padding: 10px calc(calc(0.75em - 2px) + 0.375em);
   }
-  .btn-contianer,
-  .para-contianer {
-    padding: 1rem 1.5rem;
-  }
+
   .error {
     padding: 5px calc(calc(0.75em - 2px) + 0.375em);
     color: red;
@@ -224,8 +216,18 @@
   .input {
     border: none !important;
   }
+  .btn-contianer,
+  .para-contianer {
+    padding: 1rem 1.5rem;
+  }
+  .para-contianer {
+    max-width: fit-content;
+    text-align: end;
+    float: right;
+    width: 250px;
+    margin-left: 17rem;
+  }
   .para__title {
-    /* margin: 0.8rem; */
     color: rgb(77, 75, 75);
     text-decoration: underline;
     text-align: right;

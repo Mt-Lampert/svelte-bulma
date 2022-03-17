@@ -66,5 +66,7 @@
     text-align: center;
     color: white;
     background: #fce6e6;
+    display: flex;
+    flex-direction: column;
   }
 </style>
