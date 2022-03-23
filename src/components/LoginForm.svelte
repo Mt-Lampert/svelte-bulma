@@ -10,16 +10,18 @@
     global.set(myNewGlob);
   }
 
-  function handleSubmit(event) {
+  function handleSubmit() {
     // fetch Date
+    
+
   }
 
   function enteredName() {}
 
 </script>
-
+<!-- on:submit|preventDefault={handleSubmit} -->
 <Modal>
-  <form on:submit|preventDefault={handleSubmit} slot="slot-form" class="form">
+  <form  slot="slot-form" class="form">
     <h1 class="title-cont is-medium">BOOM | Log In</h1>
     <div class="form-container">
       <label for="email">E-Mail or Full Name</label>

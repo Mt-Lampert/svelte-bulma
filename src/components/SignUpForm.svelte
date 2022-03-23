@@ -70,31 +70,48 @@
     }
   }
 
-  function handleSubmit() {
-    sendData();
+  function handleSubmit(data) {
+    console.log("Submit!")
+    /* So hab ich mir die Daten vom BE vorgestellt
+    if (
+      userInput.fullNameInput == data.fullNameInput &&
+      userInput.emailInput == data.emailInput
+    ) {
+      // Fehlermeldung in UI, dass die Daten im BE  existieren
+    } else {
+      sendData();
+    }
+    */
   }
 
-  function sendData() {
+  async function sendData() {
     let URL =
-      "https://svelte-bulma-default-rtdb.europe-west1.firebasedatabase.app/.json";
+      "https://svelte-bulma-default-rtdb.europe-west1.firebasedatabase.app/users.json";
 
     console.log("Data Sent!");
-
+    // 1. bring the URL
+    // JSON.stringify() macht aus einem JavaScript-Objekt einen JSON-String
+    // JSON.parse() macht aus einem JSON-String ein JavaScript-Objekt
     fetch(URL, {
       method: "POST",
       body: JSON.stringify(userInput),
       headers: {
-        Content: "application",
+        content: "application/json",
       },
     })
-      .then((res) => {
-        if (!res.ok) {
+      // 2. then take it as a parameter "response" (when it is done)
+      // Die response, die vom Backend-Server kommt, ist erst einmal
+      // nur ein String. fetch() wandelt diesen String automatisch
+      // in ein JS-Objekt um. Das Ergebnis wird als 'response' an
+      // die anonyme Handler-Funktion in then() übergeben.
+      .then((response) => {
+        if (!response.ok) {
           throw new Error("Faild");
         }
         // ...
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }
 </script>
