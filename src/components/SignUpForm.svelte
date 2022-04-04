@@ -13,9 +13,9 @@
   let userInput = { fullNameInput: "", emailInput: "", passWordInput: "" };
   let errors = { fullName: "", mail: "", passWord: "" };
 
-  let nameIsValid = false;
-  let mailIsValid = false;
-  let passwordIsValid = false;
+  // let nameIsValid = false;
+  // let mailIsValid = false;
+  // let passwordIsValid = false;
 
   let isValid = false;
 
@@ -70,17 +70,21 @@
     }
   }
 
-  function handleSubmit(data) {
-    console.log("Submit!")
-    /* So hab ich mir die Daten vom BE vorgestellt
-    if (
-      userInput.fullNameInput == data.fullNameInput &&
-      userInput.emailInput == data.emailInput
-    ) {
-      // Fehlermeldung in UI, dass die Daten im BE  existieren
-    } else {
-      sendData();
-    }
+  function handleSubmit() {
+    console.log("Submit!");
+    /*
+    const name = userInput.fullNameInput;
+    const email = userInput.emailInput;
+    const password = userInput.passWordInput;
+
+    createUserWithEmailAndPassword(auth, name, email, password)
+      .then((cred) => {
+        console.log("user created:", cred.user)
+        reset();
+      })
+      .catch((err) => {
+        console.log(err.message)
+      })
     */
   }
 
@@ -117,7 +121,7 @@
 </script>
 
 <Modal>
-  <form on:submit={handleSubmit} slot="slot-form" class="form">
+  <form slot="slot-form" class="form">
     <h1 class="title-cont is-medium">BOOM | Sing Up</h1>
     <div class="form-container">
       <!-- <div class="input-wrapp"> </div> -->
@@ -162,12 +166,11 @@
       >
     {:else}
       <button
-        on:click={handleSubmit}
+        on:click|preventDefault={handleSubmit}
         type="submit"
         class="button is-rounded is-primary sign-up">Sign Up</button
       >
     {/if}
-
     <!-- isTrue ? disabled : enabled  -->
   </div>
   <div slot="title" class="para-contianer">
