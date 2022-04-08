@@ -1,13 +1,13 @@
 <script>
   import Modal from "../containers/Modal.svelte";
-  import { global } from "../stores/global";
-  import axios from "axios";
+  import { app } from "../stores/app";
+  // import axios from "axios";
 
   function logInHandler() {
     const myNewGlob = {
       showLogin: true,
     };
-    global.set(myNewGlob);
+    app.set(myNewGlob);
   }
 
   let userInput = { fullNameInput: "", emailInput: "", passWordInput: "" };

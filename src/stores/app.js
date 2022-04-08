@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-export const global = writable({
+export const app = writable({
     showSignup: false,
     showLogin: false,
 });

@@ -1,6 +1,6 @@
 <script>
   import { onDestroy } from "svelte";
-  import { global } from "../stores/global";
+  import { app } from "../stores/app";
 
   // let showSignup = false;
   // let showLogin = false;
@@ -18,18 +18,18 @@
   // }
 
    function showSignupFn() {
-    const myNewGlob = {
+    const myNewAppSettings = {
       showSignup: true,
     };
-    global.set(myNewGlob);
+    app.set(myNewAppSettings);
   }
 
   
   function showLogInFn() {
-    const myNewGlob = {
+    const myNewAppSettings = {
       showLogin: true,
     };
-    global.set(myNewGlob);
+    app.set(myNewAppSettings);
   }
   // unsubscribe = global.subscribe((glob) => {
   //   showLogin = glob.showLogin;

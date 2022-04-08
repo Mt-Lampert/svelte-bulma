@@ -5,16 +5,16 @@
 
   import Header from "./components/Header.svelte";
   import { onDestroy } from "svelte";
-  import { global } from "./stores/global";
+  import { app } from "./stores/app";
   
 
   let showSignup;
   let showLogin;
   let unsubscribe;
 
-  unsubscribe = global.subscribe((glob) => {
-    showSignup = glob.showSignup;
-    showLogin = glob.showLogin;
+  unsubscribe = app.subscribe((app) => {
+    showSignup = app.showSignup;
+    showLogin = app.showLogin;
   });
 
     // onDestroy(unsubscribe);

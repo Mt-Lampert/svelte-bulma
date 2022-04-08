@@ -1,5 +1,5 @@
 <script>
-  import { global } from "../stores/global";
+  import { app } from "../stores/app";
   export let showModal = true;
 
   function closeModal() {
@@ -26,7 +26,7 @@
       showLogin: false,
     };
 
-    global.set(myNewGlob);
+    app.set(myNewGlob);
   }
 </script>
 

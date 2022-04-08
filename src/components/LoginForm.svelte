@@ -1,13 +1,13 @@
 <script>
   import Modal from "../containers/Modal.svelte";
-  import { global } from "../stores/global";
+  import { app } from "../stores/app";
 
   function signUpHandler() {
     // console.log("Hi from Log In");
     const myNewGlob = {
       showSignup: true,
     };
-    global.set(myNewGlob);
+    app.set(myNewGlob);
   }
 
   function handleSubmit() {
