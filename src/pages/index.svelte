@@ -3,7 +3,6 @@
   import LoginForm from "../components/LoginForm.svelte";
   import Hero from "../components/Hero.svelte";
 
-  import Header from "../components/Header.svelte";
   import { onDestroy } from "svelte";
   import { app } from "../stores/app";
   
@@ -26,7 +25,6 @@
 </script>
 
 <!-- <div class="landingpage__container"> -->
-  <Header />
   {#if showSignup}
     <SignUpForm />
   {/if }
