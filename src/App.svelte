@@ -1,6 +1,26 @@
 <script>
+  import fb_config  from "./lib/fb_config";
+  // Firebase 8: 
+  // import firebase from "firebase.app"
+  // Firebase 9:
+  import { initializeApp } from "firebase/app"
+  // firestore-hook installieren
+  import { 
+    getFirestore,
+    collection,
+    getDocs
+  } from "firebase/firestore"
+  
+  
   import { Router } from "@roxi/routify";
   import { routes } from "../.routify/routes";
+
+  // Firebase 8: Connector erstellen
+  // const fb = firebase.initializeApp(firebaseConfig);
+  // Firebase 9:
+  const fb = initializeApp(fb_config);
+
+
 </script>
 
 <Router {routes} />
