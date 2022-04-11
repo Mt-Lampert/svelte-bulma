@@ -7,7 +7,7 @@
   </div>
   <div class="info">
     <h1 class="info__title">BOOM</h1>
-    <p>A Page takes you to kids Mode where you can fi href="/catalog/"nd your kids favorite clothes</p>
+    <p>A Page takes you to kids Mode where you can find your kids favorite clothes</p>
     <a href="/catalog/" class="button is-primary">Let's shop</a>
   </div>
 </div>
