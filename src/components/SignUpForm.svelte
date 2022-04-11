@@ -1,5 +1,5 @@
 <script>
-  import Modal from "../containers/Modal.svelte";
+  // import Modal from "../containers/Modal.svelte";
   import { app } from "../stores/app";
   // import axios from "axios";
 
@@ -71,7 +71,7 @@
   }
 
   function handleSubmit(data) {
-    console.log("Submit!")
+    console.log("Submitting!");
     /* So hab ich mir die Daten vom BE vorgestellt
     if (
       userInput.fullNameInput == data.fullNameInput &&
@@ -116,8 +116,8 @@
   }
 </script>
 
-<Modal>
-  <form on:submit={handleSubmit} slot="slot-form" class="form">
+<div class="base-container">
+  <form on:submit={handleSubmit} class="form">
     <h1 class="title-cont is-medium">BOOM | Sing Up</h1>
     <div class="form-container">
       <!-- <div class="input-wrapp"> </div> -->
@@ -153,7 +153,7 @@
       <p class="error">{errors.passWord}</p>
     </div>
   </form>
-  <div slot="button" class="btn-contianer">
+  <div class="btn-contianer">
     {#if !isValid}
       <button
         on:click={handelValidation}
@@ -170,12 +170,16 @@
 
     <!-- isTrue ? disabled : enabled  -->
   </div>
-  <div slot="title" class="para-contianer">
+  <div class="para-contianer">
     <p on:click={logInHandler} class="para__title">Already have an Account?</p>
   </div>
-</Modal>
+</div>
 
 <style>
+  .base-container {
+    /* background-color: rgb(240,240,240); */
+    margin: 10vh 25vw 0 25vw;
+  }
   .form {
     padding: 2rem 1.5rem;
   }

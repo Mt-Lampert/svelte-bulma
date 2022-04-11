@@ -68,9 +68,9 @@
       <div class="navbar-item">
         <div class="buttons">
           <!-- If "Sign Up" geklickt, wird SignUpForm aufgerufen -->
-          <button class="button singup is-primary" on:click={showSignupFn}>
+          <a class="button singup is-primary" href="/signup">
             <strong>Sign up</strong>
-          </button>
+          </a>
           <!-- <Modal /> -->
 
           <!-- If "Sign In" geklickt, wird LoginForm aufgerufen -->
