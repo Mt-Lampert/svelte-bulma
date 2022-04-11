@@ -35,9 +35,4 @@
  
   <Hero />
 
-<style global lang="scss">
-  @import "../main.scss";
-  .block {
-    padding: 2rem 6rem;
-  }
-</style>
+
