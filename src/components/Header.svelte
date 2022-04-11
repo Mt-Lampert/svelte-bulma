@@ -73,10 +73,9 @@
           </a>
           <!-- <Modal /> -->
 
-          <!-- If "Sign In" geklickt, wird LoginForm aufgerufen -->
-          <button class="button is-light" on:click={showLogInFn}>Log In</button>
-          <!-- <Modal /> -->
-        </div>
+          <!-- If "Sign In" geklickt, wird die '/login'-Route aufgerufen -->
+          <a href="/login" class="button is-light">Log In</a> 
+          <!-- <Modal -->
       </div>
     </div>
   </div>

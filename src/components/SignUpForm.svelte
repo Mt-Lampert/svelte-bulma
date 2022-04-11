@@ -171,7 +171,7 @@
     <!-- isTrue ? disabled : enabled  -->
   </div>
   <div class="para-contianer">
-    <p on:click={logInHandler} class="para__title">Already have an Account?</p>
+    <a href="/login" class="para__title">Already have an Account?</a>
   </div>
 </div>
 
